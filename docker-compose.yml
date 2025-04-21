@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  client-service:
+    build: ./client_service
+    ports:
+      - "8084:8084"
+    volumes:
+      - ./client_service:/app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/usersdb
+      SPRING_DATASOURCE_USERNAME: devuser
+      SPRING_DATASOURCE_PASSWORD: devpass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres
+    networks:
+      - micro-net
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_DB: usersdb
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpass
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - micro-net
+
+volumes:
+  pgdata:
+
+networks:
+  micro-net:
+    driver: bridge
+
