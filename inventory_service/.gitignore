@@ -1,0 +1,9 @@
+# Ignorar el entorno virtual local
+.venv/
+
+# Ignorar el directorio 'static' 
+static/
+
+# Ignorar directorios de caché de Python
+__pycache__/
+
