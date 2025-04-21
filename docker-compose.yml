@@ -25,22 +25,62 @@ services:
       POSTGRES_USER: devuser
       POSTGRES_PASSWORD: devpass
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
       - micro-net
 
-  inventario-service:
-    build: ./inventario_service
-  
+
+  db:
+    image: postgres:15
+    restart: always
+    container_name: inventory-postgresql
     volumes:
-      - ./inventario_service:/app
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      DATA_HOST: 127.0.0.1
+      POSTGRES_DB: inventarydb
+      POSTGRES_USER: inventaryuser
+      POSTGRES_PASSWORD: inventarypass
+    ports:
+      - "5432:5432"
     networks:
       - micro-net
-    working_dir: /app
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    networks:
+      - micro-net
+
+  inventory_service:
+    build: ./inventory_service
+    container_name: inventory_service
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./inventory_service/inventory:/app
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_NAME: inventarydb
+      POSTGRES_USER: inventaryuser
+      POSTGRES_PASSWORD: inventarypass
+      POSTGRES_HOST: db
+    depends_on:
+      - db
+    networks:
+      - micro-net
     stdin_open: true
-    tty: true
+    tty: true 
 
 volumes:
   pgdata:
@@ -48,4 +88,3 @@ volumes:
 networks:
   micro-net:
     driver: bridge
-
