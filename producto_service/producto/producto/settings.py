@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'django_filters',
-    'app_producto'
+    'app_producto',
+    'category',
     
 ]
 
