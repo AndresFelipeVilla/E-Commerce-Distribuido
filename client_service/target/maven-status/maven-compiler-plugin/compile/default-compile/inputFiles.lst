@@ -1,2 +1,9 @@
 /app/src/main/java/com/e_commerce_distribuido/client_service/ClientServiceApplication.java
+/app/src/main/java/com/e_commerce_distribuido/client_service/controller/ClientController.java
+/app/src/main/java/com/e_commerce_distribuido/client_service/dto/ClientRequestDTO.java
+/app/src/main/java/com/e_commerce_distribuido/client_service/dto/ClientResponseDTO.java
+/app/src/main/java/com/e_commerce_distribuido/client_service/mapper/ClientMapper.java
 /app/src/main/java/com/e_commerce_distribuido/client_service/model/ClientModel.java
+/app/src/main/java/com/e_commerce_distribuido/client_service/repository/ClientRepository.java
+/app/src/main/java/com/e_commerce_distribuido/client_service/service/ClientService.java
+/app/src/main/java/com/e_commerce_distribuido/client_service/service/IClientService.java

@@ -3,6 +3,7 @@ package com.e_commerce_distribuido.client_service.mapper;
 import org.springframework.stereotype.Component;
 
 import com.e_commerce_distribuido.client_service.dto.ClientRequestDTO;
+import com.e_commerce_distribuido.client_service.dto.ClientResponseDTO;
 import com.e_commerce_distribuido.client_service.model.ClientModel;
 
 @Component
@@ -16,5 +17,13 @@ public class ClientMapper {
                 .address(clientRequestDTO.getAddress())
                 .phoneNumber(clientRequestDTO.getPhoneNumber())
                 .build();
+    }
+
+    public ClientResponseDTO toDTO(ClientModel clientModel) {
+        return ClientResponseDTO.builder()
+                .name(clientModel.getName())
+                .email(clientModel.getEmail())
+                .build(
+        );
     }
 }

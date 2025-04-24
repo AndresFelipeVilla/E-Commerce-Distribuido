@@ -11,5 +11,6 @@
             "username": "devuser",
             "password": "devpass"
         }
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

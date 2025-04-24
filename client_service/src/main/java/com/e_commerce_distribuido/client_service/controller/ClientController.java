@@ -7,9 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.e_commerce_distribuido.client_service.dto.ClientRequestDTO;
+import com.e_commerce_distribuido.client_service.dto.ClientResponseDTO;
 import com.e_commerce_distribuido.client_service.service.IClientService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/api/v1/clientes")
@@ -23,4 +27,11 @@ public class ClientController {
         clientService.createClient(clientRequestDTO);
         return ResponseEntity.ok("Client created successfully");
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientResponseDTO> getClientById(@PathVariable Long id) {
+        clientService.getClientById(id);
+        return ResponseEntity.ok(clientService.getClientById(id));
+    }
+    
 }
