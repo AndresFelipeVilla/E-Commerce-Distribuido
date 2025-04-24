@@ -8,6 +8,7 @@ class ProductoViewSet(ModelViewSet):
     
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
+    lookup_field = 'name'
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductoFilter
     
