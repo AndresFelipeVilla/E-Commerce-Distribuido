@@ -29,13 +29,9 @@ public class OrderService implements IOrderService {
     @Override
     public void createOrder(OrderRequestDTO orderRequest) {
         ClientResponseDTO client = getClientById(orderRequest.clientId());
-        if (client == null) {
-            throw new RuntimeException("Client not found");
-        }
-
         OrderModel order = orderMapper.toEntity(orderRequest);
         order.setCustomerName(client.getName());
-        orderRepository.save(order);
+        orderRepository.save(order); 
     }
 
 
@@ -66,7 +62,7 @@ public class OrderService implements IOrderService {
 
     private ClientResponseDTO getClientById(Long clientId) {
         return webClient.get()
-            .uri("/clientes/{id}", clientId)  
+            .uri("/clients/{id}", clientId)  
             .retrieve()
             .onStatus(HttpStatusCode::is4xxClientError, response -> {
                 return Mono.error(new RuntimeException("Client not found"));

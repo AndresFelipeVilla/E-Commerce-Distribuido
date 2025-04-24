@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/api/v1/clientes")
+@RequestMapping("/api/v1/clients")
 @RequiredArgsConstructor
 public class ClientController {
     
@@ -28,10 +28,10 @@ public class ClientController {
         return ResponseEntity.ok("Client created successfully");
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ClientResponseDTO> getClientById(@PathVariable Long id) {
-        clientService.getClientById(id);
-        return ResponseEntity.ok(clientService.getClientById(id));
+    @GetMapping("/{clientId}")
+    public ResponseEntity<ClientResponseDTO> getClientById(@PathVariable Long clientId) {
+        clientService.getClientById(clientId);
+        return ResponseEntity.ok(clientService.getClientById(clientId));
     }
     
 }

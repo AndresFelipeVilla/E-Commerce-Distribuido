@@ -47,7 +47,6 @@ services:
     networks:
       - micro-net 
 
-<<<<<<< HEAD
   order-db:
     image: postgres:15
     container_name: order-db
@@ -61,11 +60,6 @@ services:
       - pgdata-order:/var/lib/postgresql/data
     networks:
       - micro-net 
-volumes:
-  pgdata:
-  pgdata-order:
-=======
-
 
   db:
     image: postgres:15
@@ -117,8 +111,6 @@ volumes:
     stdin_open: true
     tty: true 
 
-
-
   db_producto:
     image: postgres:15
     restart: always
@@ -168,13 +160,11 @@ volumes:
     stdin_open: true
     tty: true
 
-
-
 volumes:
   pgdata:
+  pgdata-order:
   inventariodata:
   productodata:
->>>>>>> 9f121a4bea8cfef296e2b1b7eae7cfcadf1804a3
 
 networks:
   micro-net:
