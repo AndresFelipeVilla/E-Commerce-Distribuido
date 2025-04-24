@@ -47,6 +47,7 @@ services:
     networks:
       - micro-net 
 
+<<<<<<< HEAD
   order-db:
     image: postgres:15
     container_name: order-db
@@ -63,8 +64,118 @@ services:
 volumes:
   pgdata:
   pgdata-order:
+=======
+
+
+  db:
+    image: postgres:15
+    restart: always
+    container_name: inventory-postgresql
+    volumes:
+      - inventariodata:/var/lib/postgresql/data
+    environment:
+      DATA_HOST: 127.0.0.1
+      POSTGRES_DB: inventarydb
+      POSTGRES_USER: inventaryuser
+      POSTGRES_PASSWORD: inventarypass
+    ports:
+      - "5432:5432"
+    networks:
+      - micro-net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    networks:
+      - micro-net
+
+  inventory_service:
+    build: ./inventory_service
+    container_name: inventory_service
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./inventory_service/inventory:/app
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_NAME: inventarydb
+      POSTGRES_USER: inventaryuser
+      POSTGRES_PASSWORD: inventarypass
+      POSTGRES_HOST: db
+    depends_on:
+      - db
+    networks:
+      - micro-net
+    stdin_open: true
+    tty: true 
+
+
+
+  db_producto:
+    image: postgres:15
+    restart: always
+    container_name: producto-postgresql
+    volumes:
+      - productodata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: productodb
+      POSTGRES_USER: productouser
+      POSTGRES_PASSWORD: productopass
+    ports:
+      - "5434:5432"
+    networks:
+      - micro-net
+
+  pgadmin_producto:
+    image: dpage/pgadmin4
+    container_name: pgadmin_producto
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin_producto@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin_producto
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "81:80"
+    depends_on:
+      - db_producto
+    networks:
+      - micro-net
+
+  producto_service:
+    build: ./producto_service
+    container_name: producto_service
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./producto_service/producto:/app
+    ports:
+      - "8001:8000"
+    environment:
+      POSTGRES_NAME: productodb
+      POSTGRES_USER: productouser
+      POSTGRES_PASSWORD: productopass
+      POSTGRES_HOST: db_producto
+    depends_on:
+      - db_producto
+    networks:
+      - micro-net
+    stdin_open: true
+    tty: true
+
+
+
+volumes:
+  pgdata:
+  inventariodata:
+  productodata:
+>>>>>>> 9f121a4bea8cfef296e2b1b7eae7cfcadf1804a3
 
 networks:
   micro-net:
     driver: bridge
-
