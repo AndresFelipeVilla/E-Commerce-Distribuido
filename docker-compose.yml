@@ -30,7 +30,41 @@ services:
       - pgdata:/var/lib/postgresql/data
     networks:
       - micro-net
+  
+  order-service:
+    build: ./order_service
+    ports:
+      - "8085:8085"
+    volumes:
+      - ./order_service:/app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://order-db:5432/orderdb
+      SPRING_DATASOURCE_USERNAME: devorderuser
+      SPRING_DATASOURCE_PASSWORD: devorderpass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - order-db
+    networks:
+      - micro-net 
 
+<<<<<<< HEAD
+  order-db:
+    image: postgres:15
+    container_name: order-db
+    environment:
+      POSTGRES_DB: orderdb
+      POSTGRES_USER: devorderuser
+      POSTGRES_PASSWORD: devorderpass
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata-order:/var/lib/postgresql/data
+    networks:
+      - micro-net 
+volumes:
+  pgdata:
+  pgdata-order:
+=======
 
 
   db:
@@ -140,6 +174,7 @@ volumes:
   pgdata:
   inventariodata:
   productodata:
+>>>>>>> 9f121a4bea8cfef296e2b1b7eae7cfcadf1804a3
 
 networks:
   micro-net:

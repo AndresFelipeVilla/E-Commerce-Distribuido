@@ -1,0 +1,16 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5433,
+            "driver": "PostgreSQL",
+            "name": "clientedb",
+            "group": "PostgreSQL",
+            "database": "usersdb",
+            "username": "devuser",
+            "password": "devpass"
+        }
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
