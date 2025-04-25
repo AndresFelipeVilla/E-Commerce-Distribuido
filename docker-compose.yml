@@ -61,6 +61,8 @@ services:
     networks:
       - micro-net 
 
+
+
   db:
     image: postgres:15
     restart: always
@@ -68,7 +70,6 @@ services:
     volumes:
       - inventariodata:/var/lib/postgresql/data
     environment:
-      DATA_HOST: 127.0.0.1
       POSTGRES_DB: inventarydb
       POSTGRES_USER: inventaryuser
       POSTGRES_PASSWORD: inventarypass
@@ -111,6 +112,8 @@ services:
     stdin_open: true
     tty: true 
 
+
+
   db_producto:
     image: postgres:15
     restart: always
@@ -122,7 +125,7 @@ services:
       POSTGRES_USER: productouser
       POSTGRES_PASSWORD: productopass
     ports:
-      - "5434:5432"
+      - "5435:5432"
     networks:
       - micro-net
 

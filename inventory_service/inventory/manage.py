@@ -21,6 +21,6 @@ def main():
 if __name__ == '__main__':
     main()
 
-# Nombre de usuario: santiago
-# Dirección de correo electrónico: santiago@gmail.com
-# Password: santiago
+# Nombre de usuario (leave blank to use 'root'): santiago1
+# Dirección de correo electrónico: santiago1@gmail.com
+# Password:santiago1
