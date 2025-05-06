@@ -14,14 +14,14 @@ class StockViewSet(viewsets.GenericViewSet):
 
 
     # accion para verificar el stock de un producto en especifico
-     # 'detail=True' indica que esta acción opera sobre una instancia específica (usando el lookup field)
+    # 'detail=True' indica que esta acción opera sobre una instancia específica (usando el lookup field)
     @action(detail=True, methods=['get'])
     def check_stock(self, request, pk=None):
         """
         verifica la cantidad de stock para un prodcuto dado su ID"""
         # Obtiene la instancia de Stock usando el pk (que será el product_id de la URL)
         stock_instance = get_object_or_404(Stock, product_id=pk)
-         # Usa el serializador para devolver los datos del stock
+        # Usa el serializador para devolver los datos del stock
         serializer = self.get_serializer(stock_instance)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
     
