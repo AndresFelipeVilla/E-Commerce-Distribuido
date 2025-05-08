@@ -16,16 +16,16 @@ class StockViewSet(viewsets.GenericViewSet):
     
     #accion para verificar stock incluyendo detalles del producto
     @action(detail=True, methods=['get'])
-    def check_stock_with_details(self, request, pk=None):
+    def check_stock_with_details(self, request, product_id=None):
         """
         Verifica la cantidad de stock para un producto e incluye detalles del producto.
         Consulta el servicio de productos para obtener detalles.
         """
         # Obtiene la instancia de Stock usando el pk (que será el product_id de la URL)
-        stock_instance = get_object_or_404(Stock, product_id=pk)
+        stock_instance = get_object_or_404(Stock, product_id=product_id)
         
         # consultar el servicio de productos para obtener detalles del producto
-        product_details = get_product_details(pk)
+        product_details = get_product_details(product_id)
         
         # verificar si se obtuvieron detalles del producto
         if product_details is None:
@@ -48,11 +48,11 @@ class StockViewSet(viewsets.GenericViewSet):
     # accion para verificar el stock de un producto en especifico
     # 'detail=True' indica que esta acción opera sobre una instancia específica (usando el lookup field)
     @action(detail=True, methods=['get'])
-    def check_stock(self, request, pk=None):
+    def check_stock(self, request, product_id=None):
         """
         verifica la cantidad de stock para un prodcuto dado su ID"""
         # Obtiene la instancia de Stock usando el pk (que será el product_id de la URL)
-        stock_instance = get_object_or_404(Stock, product_id=pk)
+        stock_instance = get_object_or_404(Stock, product_id=product_id)
         # Usa el serializador para devolver los datos del stock
         serializer = self.get_serializer(stock_instance)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
@@ -60,11 +60,11 @@ class StockViewSet(viewsets.GenericViewSet):
      
     # accion para aumentar el stock de un producto
     @action(detail=True, methods=['post'])
-    def increase_stock(self, request, pk=None):
+    def increase_stock(self, request, product_id=None):
         """
         Aumenta la cantidad de stock para un producto dado su ID"""
         # Obtiene la instancia de Stock usando el pk (que será el product_id de la URL)
-        stock_instance = get_object_or_404(Stock, product_id=pk)
+        stock_instance = get_object_or_404(Stock, product_id=product_id)
         
         # Espera un JSON con la cantidad a aumentar
         # Ejemplo: { "quantity": 10 }
@@ -84,11 +84,11 @@ class StockViewSet(viewsets.GenericViewSet):
     
     # accion para disminuir el stock de un producto
     @action(detail=True, methods=['post'])
-    def decrease_stock(self, request, pk=None):
+    def decrease_stock(self, request, product_id=None):
         """
         Disminuye la cantidad de stock para un producto dado su ID"""
         # Obtiene la instancia de Stock usando el pk (que será el product_id de la URL)
-        stock_instance = get_object_or_404(Stock, product_id=pk)
+        stock_instance = get_object_or_404(Stock, product_id=product_id)
         
         # Espera un JSON con la cantidad a disminuir
         # Ejemplo: { "quantity": 5 }
